@@ -1,3 +1,5 @@
+// Matt Prodani, KP Vividhwara, Tom Han
+//Action!, an app to easily support our earth.
 import java.util.Date;
 int toolbarHeight = 125;
 int headerHeight = 100;
@@ -36,19 +38,19 @@ Task[] currentTasks = new Task[5];
 void setup(){
   size(700, 1200);
   topLogo = loadImage("top_logo.png");
-  
+
   //Tree
-  images[0] = loadImage("stage0.png");
-  images[1] = loadImage("stage1.png");
-  images[2] = loadImage("stage2.png");
-  images[3] = loadImage("stage3.png");
-  images[4] = loadImage("stage4.png");
-  images[5] = loadImage("stage5.png");
-  sprout = loadImage("sprout.png");
-  checkmark = loadImage("checkmark.png");
-  calendar = loadImage("calendar.png");
-  clipboard = loadImage("clipboard.png");
-  
+  images[0] = loadImage("src/stage0.png");
+  images[1] = loadImage("src/stage1.png");
+  images[2] = loadImage("src/stage2.png");
+  images[3] = loadImage("src/stage3.png");
+  images[4] = loadImage("src/stage4.png");
+  images[5] = loadImage("src/stage5.png");
+  sprout = loadImage("src/sprout.png");
+  checkmark = loadImage("src/checkmark.png");
+  calendar = loadImage("src/calendar.png");
+  clipboard = loadImage("src/clipboard.png");
+
   //TASKS
   mission[1] = "Vegetarian Day!";
   mission[2] = "Use Public Transport";
@@ -57,13 +59,13 @@ void setup(){
   mission[0] = "Unplug your devices";
   for (int i=0;i<=4;i++){
     currentTasks[i]=new Task(displayWidth/14,17*displayHeight/120+183*displayHeight*i/1200,mission[i]);
-    
-    
+
+
   //CALENDAR
-  
+
 
   println(getoday());
-  
+
   holidays = new ArrayList<MonthDay>();
   holidays.add(new Holiday("New Year's Day", 1, 1));
   holidays.add(new Holiday("Independence\nDay", 7, 4));
@@ -110,11 +112,11 @@ void setup(){
     public int getMonth() {return 11;}
     public int getDay() {return getDayInMonth(currentYear, currentMonth, 5, 4);}
   });
-  
+
   currentMonth = month() - 1;
   currentYear = year();
   }
-  
+
 }
 
 
@@ -131,10 +133,10 @@ void draw(){
   rect(480, displayHeight - toolbarHeight, 600, displayHeight);
   imageMode(CENTER);
   fill(0);
-  image(sprout, 110, displayHeight - toolbarHeight/2, 100, 100); 
-  image(clipboard, 350, displayHeight - toolbarHeight/2, 100, 100); 
-  image(calendar, 590, displayHeight - toolbarHeight/2, 100, 100); 
-  
+  image(sprout, 110, displayHeight - toolbarHeight/2, 100, 100);
+  image(clipboard, 350, displayHeight - toolbarHeight/2, 100, 100);
+  image(calendar, 590, displayHeight - toolbarHeight/2, 100, 100);
+
   fill(255);
   rectMode(CORNER);
   switch(currWindow){
@@ -148,12 +150,12 @@ void draw(){
       drawCalendar();
       break;
     }
-     
-  
-  
+
+
+
 }
 void drawCalendar() {
-  
+
   translate(0, 100);
   textFont(createFont("ArialMT-48", 12));
   textAlign(CENTER, CENTER);
@@ -300,26 +302,26 @@ void drawCalendar() {
 void drawTree(){
   fill(255);
   if(treeAnimationStart < 255){
-  treeAnimationStart += 8; 
+  treeAnimationStart += 8;
   tint(255, treeAnimationStart);
   }
   imageMode(CENTER);
   image(images[currBranches], displayWidth/2, displayHeight-toolbarHeight - 850/2);
-} 
+}
 
 
 void drawTasks(){
   for(int i=0; i<= 4; i++){
     currentTasks[i].draw();
  }
- 
+
 }
 
-         
+
 void keyPressed(){
   currWindow = "Tasks";
-  
-  
+
+
 }
 
 void switchWindow(String window){
@@ -337,25 +339,25 @@ void switchWindow(String window){
 
 void onTaskCheck(){
   currBranches += 1;
-  
-  
-  
+
+
+
 }
-  
+
 
 void mouseReleased(){
-  
+
   if(mouseY > displayHeight - toolbarHeight){
     if(mouseX > 220){
       if(mouseX > 480)
         switchWindow("Calendar");
       else
-        switchWindow("Tasks");        
+        switchWindow("Tasks");
     }else
       switchWindow("Tree");
     return;
   }
-  
+
   switch(currWindow){
     case "Tasks":
       for(Task t : currentTasks){
@@ -383,7 +385,7 @@ void mouseReleased(){
         }
         if(mouseOverArrow(2)) currentYear ++;
       }
-      break;  
+      break;
   }
 }
 
@@ -398,8 +400,8 @@ public class Task{
     yPosition = mYPosition;
     thisMission = mThisMission;
   }
-  
-  
+
+
   //Checks if mouse x1 and x2 are within task's checkbox
   boolean coordsIn(int x1, int y1){
    boolean b = false;
@@ -409,7 +411,7 @@ public class Task{
    }
    return b;
  }
-  
+
  void draw(){
   fill(255);
   rect(xPosition,yPosition,6*displayWidth/7,150*displayHeight/1200,20);
@@ -426,7 +428,7 @@ public class Task{
   void toggleChecked(){
     check = !check;
   }
- 
+
 }
 
 
